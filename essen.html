@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Beitrag 2: Tägliche Essensgewohnheiten</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <style>
+    .stars {
+      font-size: 1.5rem;
+      color: #ccc;
+      cursor: pointer;
+    }
+    .stars .active {
+      color: gold;
+    }
+    .rating-count {
+      margin-top: 5px;
+      font-weight: bold;
+    }
+    .comment-section {
+      margin-top: 15px;
+    }
+    .comment {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+
+  
+  
+<body>
+
+ 
+  
+<!-- Header -->
+<header class="bg-primary text-white text-center py-5">
+  <h1>Tägliche Essensgewohnheiten</h1>
+</header>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="index.html">Home</a>
+  
+
+
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      
+      <li class="nav-item">
+        <a class="nav-link" href="essen.html">Mein Festessen</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+   <!-- Tag 2 -->
+
+    </div>
+ <!-- 🎵 Hintergrundmusik -->
+ <audio id="bg-music" loop>
+  <source src="h:\Musik\1.mp3" type="audio/mpeg">
+  Dein Browser unterstützt das Audio-Element nicht.
+</audio>
+
+<!-- 🎚️ Musik-Button -->
+<div class="text-center my-3">
+  <button id="music-btn" class="btn btn-outline-primary">
+    🎵 Musik starten
+  </button>
+</div>
+
+<script>
+  const music = document.getElementById('bg-music');
+  const btn = document.getElementById('music-btn');
+  let playing = false;
+
+  btn.addEventListener('click', () => {
+    if (!playing) {
+      music.play();
+      btn.textContent = "⏸️ Musik pausieren";
+      playing = true;
+    } else {
+      music.pause();
+      btn.textContent = "🎵 Musik starten";
+      playing = false;
+    }
+  });
+</script>
+<!-- Hauptinhalt -->
+<div class="container mt-4">
+  <h2>Tägliche Essensgewohnheiten</h2>
+
+  <!-- TEMPLATE CARD -->
+  <div id="cards-container">
+
+    <!-- Tag 1 -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h4 class="card-title">Tag 1 - 18. Dezember 2025</h4>
+        <p><strong>Uhrzeit:</strong> 08:00 Uhr</p>
+        <p><strong>Rezept:</strong> Brathähnchen</p>
+        <img src="braten.jpg" alt="Frühstück Bild" class="img-fluid" width="200px" height="250px">
+
+        <!-- Bewertung -->
+        <div class="mt-3">
+          <div class="stars" data-id="2">★ ★ ★ ★ ★</div>
+          <div class="rating-count" id="rating-count-2">Bewertung: 0 Sterne</div>
+        </div>
+
+        <!-- Kommentare -->
+        <div class="comment-section" data-id="2">
+          <h5>Kommentare</h5>
+          <div class="comments-list" id="comments-2"></div>
+          <div class="form-group mt-2">
+            <textarea class="form-control" rows="2" placeholder="Kommentar schreiben..."></textarea>
+            <button class="btn btn-primary btn-sm mt-2 submit-comment">Absenden</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+
+    <!-- Tag 2 -->
+   </div>
+   </div>
+
+   
+
+<!-- Fußzeile -->
+<footer class="bg-dark text-white text-center py-3">
+  <p>&copy; 2023 Mein Blog. Alle Rechte vorbehalten.</p>
+</footer>
+
+<!-- Bootstrap JavaScript und jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- Bewertung + Kommentar Script -->
+<script>
+  // Sternebewertung
+  document.querySelectorAll('.stars').forEach(starContainer => {
+    const id = starContainer.getAttribute('data-id');
+    const stars = starContainer.textContent.trim().split('');
+    starContainer.innerHTML = stars.map((s, i) => `<span data-star="${i+1}">${s}</span>`).join('');
+
+    starContainer.addEventListener('click', e => {
+      if (e.target.dataset.star) {
+        const rating = e.target.dataset.star;
+        document.querySelector(`#rating-count-${id}`).textContent = `Bewertung: ${rating} Sterne`;
+
+        starContainer.querySelectorAll('span').forEach(star => {
+          star.classList.toggle('active', star.dataset.star <= rating);
+        });
+      }
+    });
+  });
+
+  // Kommentare
+  document.querySelectorAll('.comment-section').forEach(section => {
+    const id = section.getAttribute('data-id');
+    const textarea = section.querySelector('textarea');
+    const button = section.querySelector('.submit-comment');
+    const list = section.querySelector('.comments-list');
+
+    button.addEventListener('click', () => {
+      const text = textarea.value.trim();
+      if (text !== '') {
+        const commentDiv = document.createElement('div');
+        commentDiv.classList.add('comment');
+        commentDiv.textContent = text;
+        list.appendChild(commentDiv);
+        textarea.value = '';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
